@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style>
+      html, body, #myChart {
+        width: 1200px;
+        height: 500px;
+        margin-left: 100px;
+      }
+
+    </style>
+    <title>Переводчик валют</title>
+</head>
+<body>
+<div align="left">
+    <select id="currency" name="currency" onchange="statistic()">
+        <!--    <option>RU</option>-->
+        <option>USD</option>
+        <option>AZN</option>
+        <option>AUD</option>
+        <option>GBP</option>
+        <option>AMD</option>
+        <option>BYN</option>
+        <option>BGN</option>
+        <option>BRL</option>
+        <option>HUF</option>
+        <option>HKD</option>
+        <option>DKK</option>
+        <option>EUR</option>
+        <option>INR</option>
+        <option>KZT</option>
+        <option>CAD</option>
+        <option>KGS</option>
+        <option>CNY</option>
+        <option>MDL</option>
+        <option>NOK</option>
+        <option>PLN</option>
+        <option>RON</option>
+        <option>XDR</option>
+        <option>SGD</option>
+        <option>TJS</option>
+        <option>TRY</option>
+        <option>TMT</option>
+        <option>UZS</option>
+        <option>UAH</option>
+        <option>CZK</option>
+        <option>SEK</option>
+        <option>CHF</option>
+        <option>ZAR</option>
+        <option>KRW</option>
+        <option>JPY</option>
+    </select>
+</div>
+<div id="graph">
+    <canvas id="myChart"></canvas>
+</div>
+
+<br>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    statistic();
+
+    function statistic(){
+        var str = "http://localhost:8080/serviceTransferMoney/chart?date=01.01.2000&step=1&meter=YEAR" + "&currency=" + encodeURI(document.getElementById("currency").value);
+        fetch(str, {
+            method: 'GET'
+        }).then(function(response) {
+            return response.text();
+        }).then(function(text) {
+            const context = rebootCanvas();
+            var chart = new Chart(context, JSON.parse(text));
+        }).catch(function(error) {
+            alert('Request failed', error);
+        });
+    }
+
+    function rebootCanvas(){
+        var oldCanvas = document.getElementById('myChart');
+        oldCanvas.parentNode.removeChild(oldCanvas);
+
+        var newCanvas = document.createElement('canvas');
+        newCanvas.id = "myChart";
+
+        var div = document.getElementsByTagName("div")[0];
+        div.appendChild(newCanvas);
+
+        return newCanvas.getContext('2d');
+    };
+
+</script>
+<script>
+        function request(){
+            var str = "http://localhost:8080/serviceTransferMoney/convert?"
+                + "from=" + encodeURI(document.getElementById("from").value) + "&"
+                + "to=" + encodeURI(document.getElementById("to").value) + "&"
+                + "quantity=" + encodeURI(document.getElementById("quantity").value);
+
+        fetch(str, {
+            method: 'GET'
+        })
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+            document.getElementById("result").setAttribute("value", text);
+        })
+        .catch(function(error) {
+            alert('Request failed', error);
+        });
+        }
+
+</script>
+<div>
+    <p>
+        <select id="from" name="from">
+            <option>RU</option>
+            <option>RG</option>
+            <option>AUD</option>
+            <option>AZN</option>
+            <option>GBP</option>
+            <option>AMD</option>
+            <option>BYN</option>
+            <option>BGN</option>
+            <option>BRL</option>
+            <option>HUF</option>
+            <option>HKD</option>
+            <option>DKK</option>
+            <option>USD</option>
+            <option>EUR</option>
+            <option>INR</option>
+            <option>KZT</option>
+            <option>CAD</option>
+            <option>KGS</option>
+            <option>CNY</option>
+            <option>MDL</option>
+            <option>NOK</option>
+            <option>PLN</option>
+            <option>RON</option>
+            <option>XDR</option>
+            <option>SGD</option>
+            <option>TJS</option>
+            <option>TRY</option>
+            <option>TMT</option>
+            <option>UZS</option>
+            <option>UAH</option>
+            <option>CZK</option>
+            <option>SEK</option>
+            <option>CHF</option>
+            <option>ZAR</option>
+            <option>KRW</option>
+            <option>JPY</option>
+        </select>
+        <input type="number" id="quantity" name="quantity" value="0.00"> Впишите сюда сумму и укажите валюту что и во
+        что перевести
+        <br>
+        <br>
+        результат:
+        <br>
+        <br>
+        <select id="to" name="to">
+            <option>RU</option>
+            <option>AUD</option>
+            <option>AZN</option>
+            <option>GBP</option>
+            <option>AMD</option>
+            <option>BYN</option>
+            <option>BGN</option>
+            <option>BRL</option>
+            <option>HUF</option>
+            <option>HKD</option>
+            <option>DKK</option>
+            <option>USD</option>
+            <option>EUR</option>
+            <option>INR</option>
+            <option>KZT</option>
+            <option>CAD</option>
+            <option>KGS</option>
+            <option>CNY</option>
+            <option>MDL</option>
+            <option>NOK</option>
+            <option>PLN</option>
+            <option>RON</option>
+            <option>XDR</option>
+            <option>SGD</option>
+            <option>TJS</option>
+            <option>TRY</option>
+            <option>TMT</option>
+            <option>UZS</option>
+            <option>UAH</option>
+            <option>CZK</option>
+            <option>SEK</option>
+            <option>CHF</option>
+            <option>ZAR</option>
+            <option>KRW</option>
+            <option>JPY</option>
+        </select>
+        <input readonly type="number" id="result" value="0.00">
+    </p>
+    <p><input type="submit" onclick="request()"></p>
+</div>
+</body>
+</html>

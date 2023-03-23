@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <p id="titleForm">Authorization
+    <p/>
+    <form action="http://localhost:8080/shop/authorization" id="regForm" method="post">
+        <label for="login" id="titleMail">login:</label>
+        <input type="text" id="login" name="login"><br><br>
+        <label for="password">password:</label>
+        <input type="text" id="password" name="password"><br><br>
+        <input type="submit" value="Log in">
+    </form>
+    <p id="titleButton">no account ?
+    <p/>
+    <form action="http://localhost:8080/shop/to_registration?" method="get">
+        <input type="submit" value="registration">
+    </form>
+
+    <script>
+        let accountId;
+    </script>
+</div>
+</body>
+</html>

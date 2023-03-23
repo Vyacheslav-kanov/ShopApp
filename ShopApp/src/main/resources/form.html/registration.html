@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Registration</title>
+</head>
+<body>
+<div align="center">
+    <p id="titleForm">Registration
+    <p/>
+    <form action="http://localhost:8080/shop/registration" id="regForm" method="post">
+        <label for="userName" id="titleName">user name:</label>
+        <input type="text" id="userName" name="userName"><br><br>
+        <label for="mail" id="titleMail">mail:</label>
+        <input type="text" id="mail" name="mail"><br><br>
+        <label for="password">password:</label>
+        <input type="text" id="password" name="password"><br><br>
+        <input type="submit" value="register">
+    </form>
+    <p id="titleButton">do you have an account ?
+    <p/>
+    <form action="http://localhost:8080/shop/to_authorization?" method="get">
+        <input type="submit" value="log in">
+    </form>
+</div>
+<script>
+    let form = document.getElementById('regForm');
+    let userNameInput = document.getElementById('userName');
+
+    function logIn(){
+        form.setAttribute('action', 'http://localhost:8080/shop/authorization');
+        userNameInput.remove();
+
+        document.getElementById('titleForm').textContent = 'authorization';
+        document.getElementById('titleName').textContent = '';
+        document.getElementById('titleMail').textContent = 'Login';
+        document.getElementById('titleButton').textContent = 'no account ?';
+
+        var button = document.getElementById('logIn');
+        button.setAttribute('value', 'Registration');
+        button.setAttribute('onclick', 'regist()');
+    };
+
+    function regist(){
+        var firstChild = document.getElementById('titleName');
+        form.setAttribute('action', 'http://localhost:8080/shop/registration');
+        form.insertBefore(userNameInput, firstChild);
+        firstChild.remove();
+        form.insertBefore(firstChild, userNameInput);
+
+        document.getElementById('titleForm').textContent = 'registration';
+        document.getElementById('titleName').textContent = 'user name:';
+        document.getElementById('titleMail').textContent = 'mail:';
+        document.getElementById('titleButton').textContent = 'do you have an account ?';
+
+        var button = document.getElementById('logIn');
+        button.setAttribute('value', 'Log in');
+        button.setAttribute('onclick', 'logIn()');
+    }
+
+
+</script>
+</body>
+</html>

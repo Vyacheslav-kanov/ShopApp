@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PersonalAccount</title>
+</head>
+<body>
+<div align="center">
+    <p>User name:</p>
+    <p>mail:</p>
+    <p id="userId">USER</p>
+
+    <script>
+        let id = -1;
+
+            function getId(){
+                var str = "http://localhost:8080/shop/account/user?";
+                fetch(str, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                }).then(function(response) {
+                    alert(response.text());
+                }).then(function(text) {
+                    alert(JSON.parse(text));
+                }).catch(function(error) {
+                    alert('Request failed', error);
+                });
+            }
+
+    function setStatus(){
+        switch(id)
+        {
+            case -1:
+                id = getId();
+                if(id > -1) setStatus();
+            case 0:
+                document.getElementById('userId').textContent = 'USER';
+            case 1:
+                document.getElementById('userId').textContent = 'ADMIN';
+            case 2:
+                document.getElementById('userId').textContent = 'ORGANIZATION';
+        }
+    }
+
+
+    </script>
+</div>
+</body>
+</html>

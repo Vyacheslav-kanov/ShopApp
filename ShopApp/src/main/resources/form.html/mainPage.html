@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Shop main</title>
+</head>
+<body>
+<div>
+    <a href="http://localhost:8080/shop/to_account?">personal account</a>
+    <p id="products"></p>
+    <script>
+    products();
+
+    function products(){
+        var str = "http://localhost:8080/shop/products_list?";
+        fetch(str, {
+            method: 'GET',
+            mode: 'no-cors'
+        }).then(function(response) {
+            return response.text;
+        }).then(function(text) {
+            document.getElementById('products').textContent = JSON.parse(text);
+        }).catch(function(error) {
+            alert('Request failed', error);
+        });
+    }
+    </script>
+</div>
+
+<div align="center">
+    <form action="http://localhost:8080/shop/to_registration?" method="get">
+        <input type="submit" value="send">
+    </form>
+</div>
+
+
+</body>
+</html>
